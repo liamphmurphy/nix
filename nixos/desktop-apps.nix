@@ -23,6 +23,7 @@
 		nextcloud-client
 		onlyoffice-bin
 		libsForQt5.ark
+		zoom-us
 		# Funsies stuff
 		steam
 		obs-studio
