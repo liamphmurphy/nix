@@ -1,4 +1,4 @@
-# Edit this configuration file to define what should be installed on
+#lEdit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
@@ -6,23 +6,65 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
+      # Bring in home manager.
+      <home-manager/nixos>
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # Include desktop apps.
       ./desktop-apps.nix
       # Include misc system configs.
       ./system-config.nix
       # Install platform-agnostic packages.
-      ./dev-tools.nix
+      ./dev-setup.nix
+      # Setup KDE Plasma.
+      #./kde-plasma/kde-plasma.nix
     ];
 
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  #home-manager.enable = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # Bootloader.
+  #boot.loader.grub.enable = true;
+  #boot.loader.grub.device = "/dev/nvme0n1p1";
+  #boot.loader.grub.useOSProber = true;
+  #boot.loader.grub.devices = [ "nodev" ];
+  #boot.loader.grub.fsIdentifier = "label";
+  #boot.loader.grub.efiInstallAsRemovable = true;
+  #boot.loader.grub.efiSupport = true;
+
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+      # assuming /boot is the mount point of the  EFI partition in NixOS (as the installation section recommends).
+      efiSysMountPoint = "/boot/efi";
+    };
+    grub = {
+      # despite what the configuration.nix manpage seems to indicate,
+      # as of release 17.09, setting device to "nodev" will still call
+      # `grub-install` if efiSupport is true
+      # (the devices list is not used by the EFI grub install,
+      # but must be set to some value in order to pass an assert in grub.nix)
+      devices = [ "nodev" ];
+      efiSupport = true;
+      enable = true;
+      # set $FS_UUID to the UUID of the EFI partition
+      extraEntries = ''
+        menuentry "Windows" {
+          insmod part_gpt
+          insmod fat
+          insmod search_fs_uuid
+          insmod chain
+          search --fs-uuid --set=root $FS_UUID
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
+      '';
+      version = 2;
+    };
+  };
+
+
+  networking.hostName = "lime"; # Define your hostname.
+  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -97,6 +139,7 @@
   environment.systemPackages = with pkgs; [
 	vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
  	wget
+	home-manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

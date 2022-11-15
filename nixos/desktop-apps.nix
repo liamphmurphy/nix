@@ -18,17 +18,27 @@
     			];
   		})
 		insomnia
+		slack
 		# Misc.
 		protonvpn-gui
 		nextcloud-client
 		onlyoffice-bin
 		libsForQt5.ark
 		zoom-us
+		papirus-icon-theme
+		gnome.gnome-disk-utility
+		audacity
+		# System settings
+		libsForQt5.yakuake
+		libsForQt5.kwallet
+		pinentry-qt
 		# Funsies stuff
 		steam
 		obs-studio
 		gamemode
 		discord
 		spotify	
+		dolphin-emu
+		vlc
 	];
 }
