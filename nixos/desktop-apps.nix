@@ -27,6 +27,7 @@
 		zoom-us
 		papirus-icon-theme
 		gnome.gnome-disk-utility
+		gnome.gnome-boxes
 		audacity
 		# System settings
 		libsForQt5.yakuake
