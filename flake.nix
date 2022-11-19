@@ -31,6 +31,8 @@
   outputs = inputs @ { self, nixpkgs, home-manager, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
     let                                                                     # Variables that can be used in the config files.
       user = "liam";
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
     in                                                                      # Use above variables in ...
     {
       nixosConfigurations = (                                               # NixOS configurations
@@ -43,7 +45,7 @@
       homeConfigurations = (                                                # Non-NixOS configurations
         import ./home {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager user;
+          inherit inputs pkgs nixpkgs home-manager user;
         }
       );
     };

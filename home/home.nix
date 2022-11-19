@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, user, ... }:
 
 {
 	imports =
@@ -7,11 +7,6 @@
 		./linux-pkgs.nix
 	];
 
-
-  	home.username = "liam";
-  	home.homeDirectory = "/home/liam";
-
-  	home.stateVersion = "22.05";
 
   	programs.home-manager.enable = true;
 
@@ -42,6 +37,7 @@
 		# Desktop apps
 		pkgs.insomnia
 		pkgs.alacritty
+		pkgs.firefox
 	];
 
         programs.zsh = {
@@ -56,6 +52,8 @@
                         gt = "go test ./...";
                         mkdir = "mkdir -p";
                         kc = "kubectl";
+			fuliam = "home-manager switch --flake .#liam";
+			fuvm = "fuliam && sudo nixos-rebuild switch --flake .#vm";
                 };
         };
 
