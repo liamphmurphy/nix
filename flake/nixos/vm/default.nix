@@ -1,45 +1,57 @@
-#
-#  These are the different profiles that can be used when building NixOS.
-#
-#  flake.nix 
-#   └─ ./hosts  
-#       ├─ default.nix *
-#       ├─ configuration.nix
-#       ├─ home.nix
-#       └─ ./desktop OR ./laptop OR ./vm
-#            ├─ ./default.nix
-#            └─ ./home.nix 
-#
+# Setup all of the VMWare goodness
 
-{ lib, inputs, nixpkgs, home-manager, user, ... }:
+{ config, pkgs, ... }:
 
-let
-  system = "x86_64-linux";                                  # System architecture
-
-  pkgs = import nixpkgs {
-    inherit system;
-    config.allowUnfree = true;                              # Allow proprietary software
-  };
-
-  lib = nixpkgs.lib;
-in
 {
-  vm = lib.nixosSystem {                                    # VM profile
-    inherit system;
-    specialArgs = { inherit inputs user location; };
-    modules = [
-      ./vm
-      ./configuration.nix
-
-      home-manager.nixosModules.home-manager {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = { inherit user; }; 
-        home-manager.users.${user} = {
-          imports = [(import ./home.nix)] ++ [(import ./vm/home.nix)];
-        };
-      }
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      ../i3.nix
+      ../system-config.nix
+      ./vm-apps.nix
     ];
-  };
-}
 
+  # Bootloader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.useOSProber = true;
+
+  virtualisation.vmware.guest.enable = true;
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "America/Los_Angeles";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.utf8";
+
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
+  # Enable the GNOME Desktop Environment.
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "";
+  };
+
+  # Enable sound with pipewire.
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  # Enable automatic login for the user.
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "liam";
+}
