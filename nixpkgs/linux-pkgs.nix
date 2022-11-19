@@ -4,5 +4,6 @@
 {
 	home.packages = [
 		pkgs.redshift	
+		pkgs.pavucontrol
 	];
 }

@@ -17,8 +17,6 @@
     		] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     			];
   		})
-		insomnia
-		slack
 		# Misc.
 		protonvpn-gui
 		nextcloud-client

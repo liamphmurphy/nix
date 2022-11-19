@@ -23,6 +23,8 @@
 		pkgs.gcc
 		pkgs.cmake
 		pkgs.yt-dlp
+		# general dev stuff
+		pkgs.vim
 		# go stuff
 		pkgs.go
 		pkgs.golangci-lint
@@ -37,6 +39,9 @@
 		# Python stuff
 		pkgs.python3Full
 		pkgs.gnupg1
+		# Desktop apps
+		pkgs.insomnia
+		pkgs.alacritty
 	];
 
         programs.zsh = {
@@ -47,7 +52,7 @@
                         theme = "robbyrussell";
                 };
                 shellAliases = {
-                        update = "nixos-rebuild switch";
+                        update = "sudo nixos-rebuild switch";
                         gt = "go test ./...";
                         mkdir = "mkdir -p";
                         kc = "kubectl";
