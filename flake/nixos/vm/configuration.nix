@@ -9,8 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       <home-manager/nixos>
-      ../../i3.nix
-      ../../system-config.nix
+      ../i3.nix
+      ../system-config.nix
       ./vm-apps.nix
     ];
 
