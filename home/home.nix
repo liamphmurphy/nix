@@ -20,6 +20,7 @@
 		pkgs.yt-dlp
 		# general dev stuff
 		pkgs.neovim-nightly
+        pkgs.nerdfonts
 		# go stuff
 		pkgs.go
 		pkgs.golangci-lint
@@ -47,18 +48,23 @@
 		viAlias = true;
 		vimAlias = true;
 
-                extraConfig = builtins.readFile ./nvim/init.vim;
+        extraConfig = builtins.readFile ./nvim/init.vim;
 
 		plugins = with pkgs; [
 			# languages
 			vimPlugins.vim-nix
 			vimPlugins.vim-terraform
+            vimPlugins.vim-go
 
             # language servers
             vimPlugins.nvim-lspconfig
 
 			# treesitter
 			vimPlugins.nvim-treesitter
+
+            # ui things
+            vimPlugins.nvim-web-devicons
+            vimPlugins.nvim-tree-lua
 
 			# autocomplete
 			vimPlugins.telescope-nvim
@@ -73,6 +79,7 @@
             vimPlugins.cmp-path
             vimPlugins.cmp-cmdline
             vimPlugins.nvim-cmp
+            vimPlugins.vim-plug
 		];
 	};
 
@@ -88,8 +95,8 @@
                         gt = "go test ./...";
                         mkdir = "mkdir -p";
                         kc = "kubectl";
-			fuliam = "home-manager switch --flake .#liam";
-			fuvm = "fuliam && sudo nixos-rebuild switch --flake .#vm";
+			            fuliam = "home-manager switch --flake .#liam";
+                        fuvm = "fuliam && sudo nixos-rebuild switch --flake .#vm";
                 };
         };
 

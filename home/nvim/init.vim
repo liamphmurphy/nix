@@ -34,13 +34,6 @@ filetype plugin on
 autocmd BufWritePre (InsertLeave?) <buffer> lua vim.lsp.buf.formatting_sync(nil,500)
 " autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
-" Setup LSP servers
-lua <<EOF
-    require'lspconfig'.pyright.setup{}
-    
-EOF
-
-
 " Telescope remappings
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
@@ -62,7 +55,31 @@ lua << EOF
 require('telescope').load_extension('fzf')
 EOF
 
+lua << EOF
+require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- you can specify color or cterm_color instead of specifying both of them
+ -- DevIcon will be appended to `name`
+ override = {
+  zsh = {
+    icon = "",
+    color = "#428850",
+    cterm_color = "65",
+    name = "Zsh"
+  }
+ };
+ -- globally enable different highlight colors per icon (default to true)
+ -- if set to false all icons will have the default icon's color
+ color_icons = true;
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+}
+EOF
+
+
 lua <<EOF
+  require("nvim-tree").setup() 
   -- Setup nvim-cmp.
   local cmp = require'cmp'
 
@@ -114,5 +131,24 @@ lua <<EOF
     })
   })
 
+    vim.g.mapleader = ";"
+    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    vim.keymap.set("n", "<leader>gc", vim.lsp.buf.code_action, {buffer=0})
+    vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, {buffer=0})
+    vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {buffer=0})
+    vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, {buffer=0})
+    require('lspconfig')['gopls'].setup {
+        on_attach = function()
+            vim.keymap.set("n", "ga", "<cmd>GoAlternate<cr>", {buffer=0})
+            vim.keymap.set("n", "dl", "<cmd>Telescope diagnostics<cr>", {buffer=0})
+            vim.keymap.set("n", "go", "<cmd>GoDoc<cr>", {buffer=0})
+            vim.keymap.set("n", "ge", "<cmd>GoIfErr<cr>", {buffer=0})
+            vim.keymap.set("n", "ds", "<cmd>GoDebugStart<cr>", {buffer=0})
+            vim.keymap.set("n", "dt", "<cmd>GoDebugStop<cr>", {buffer=0})
+            vim.keymap.set("n", "db", "<cmd>GoDebugBreakpoint<cr>", {buffer=0})
+            vim.keymap.set("n", "dc", "<cmd>GoDebugContinue<cr>", {buffer=0})
+        end,
+        capabilities = capabilities
+    }
 EOF
 
