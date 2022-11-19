@@ -63,8 +63,10 @@
 			vimPlugins.nvim-treesitter
 
             # ui things
-            vimPlugins.nvim-web-devicons
-            vimPlugins.nvim-tree-lua
+            vimPlugins.vim-devicons
+            vimPlugins.nerdtree
+            vimPlugins.nerdtree-git-plugin
+            vimPlugins.onedark-nvim
 
 			# autocomplete
 			vimPlugins.telescope-nvim

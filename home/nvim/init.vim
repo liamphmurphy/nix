@@ -46,40 +46,25 @@ set completeopt=menu,menuone,noselect
 " NERDTree remappings
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
 
-" Floatererm remappings
+" Floaterm remappings
 nnoremap <silent> <Leader>t   :FloatermToggle cd %:p:h<CR>
 tnoremap <silent> <Leader>t   <C-\><C-n>:FloatermToggle<CR>
 
 lua << EOF
 require('telescope').load_extension('fzf')
+require('onedark').setup {
+    style = 'darker'
+}
+require('onedark').load()
 EOF
 
 lua << EOF
-require'nvim-web-devicons'.setup {
- -- your personnal icons can go here (to override)
- -- you can specify color or cterm_color instead of specifying both of them
- -- DevIcon will be appended to `name`
- override = {
-  zsh = {
-    icon = "",
-    color = "#428850",
-    cterm_color = "65",
-    name = "Zsh"
-  }
- };
- -- globally enable different highlight colors per icon (default to true)
- -- if set to false all icons will have the default icon's color
- color_icons = true;
- -- globally enable default icons (default to false)
- -- will get overriden by `get_icons` option
- default = true;
-}
 EOF
 
 
 lua <<EOF
-  require("nvim-tree").setup() 
   -- Setup nvim-cmp.
   local cmp = require'cmp'
 
