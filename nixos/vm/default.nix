@@ -1,6 +1,6 @@
 # Setup all of the VMWare goodness
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -17,6 +17,9 @@
   boot.loader.grub.useOSProber = true;
 
   virtualisation.vmware.guest.enable = true;
+
+  # Set default resolution.
+  services.xserver.resolutions = lib.mkOverride 9 [ { x = 2560; y = 1440; } ]; 
 
   # Enable networking
   networking.networkmanager.enable = true;

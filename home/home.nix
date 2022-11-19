@@ -1,4 +1,4 @@
-{ config, pkgs, user, ... }:
+{ config, pkgs, user, overlays, ... }:
 
 {
 	imports =
@@ -19,7 +19,7 @@
 		pkgs.cmake
 		pkgs.yt-dlp
 		# general dev stuff
-		pkgs.vim
+		pkgs.neovim-nightly
 		# go stuff
 		pkgs.go
 		pkgs.golangci-lint
@@ -39,6 +39,42 @@
 		pkgs.alacritty
 		pkgs.firefox
 	];
+	
+	# Note: this is not the neovim from nixpkgs, this is from the neovim-nightly overlay.
+	programs.neovim = {
+		enable = true;
+		package = pkgs.neovim-nightly;
+		viAlias = true;
+		vimAlias = true;
+
+                extraConfig = builtins.readFile ./nvim/init.vim;
+
+		plugins = with pkgs; [
+			# languages
+			vimPlugins.vim-nix
+			vimPlugins.vim-terraform
+
+            # language servers
+            vimPlugins.nvim-lspconfig
+
+			# treesitter
+			vimPlugins.nvim-treesitter
+
+			# autocomplete
+			vimPlugins.telescope-nvim
+            vimPlugins.telescope-coc-nvim
+            vimPlugins.telescope-fzf-native-nvim
+
+            # misc
+            vimPlugins.vim-floaterm
+            vimPlugins.ranger-vim
+            vimPlugins.cmp-nvim-lsp
+            vimPlugins.cmp-buffer
+            vimPlugins.cmp-path
+            vimPlugins.cmp-cmdline
+            vimPlugins.nvim-cmp
+		];
+	};
 
         programs.zsh = {
                 enable = true;

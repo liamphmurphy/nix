@@ -1,10 +1,11 @@
-{ lib, inputs, pkgs, nixpkgs, home-manager, user, ... }:
+{ lib, inputs, pkgs, nixpkgs, home-manager, user, overlays, ... }:
 
 {
 	liam = home-manager.lib.homeManagerConfiguration {
 		pkgs = pkgs;
 		modules = [
 			./home.nix
+			{ nixpkgs.overlays = overlays; }
 			{
 				home = {
 					username = "${user}";

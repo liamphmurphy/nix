@@ -20,7 +20,10 @@ in {
 			keybindings = lib.mkOptionDefault {
 				# Window Actions
 				"Ctrl+q" = "kill";
+
+				# Launch applications
 				"${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+				"${mod}+Shift+f" = "exec ${pkgs.firefox}/bin/firefox";
 			};
 
 			bars = [{

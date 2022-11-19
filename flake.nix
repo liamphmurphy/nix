@@ -1,38 +1,23 @@
-#
-#  G'Day
-#  Behold is my personal Nix, NixOS and Darwin Flake.
-#  I'm not the sharpest tool in the shed, so this build might not be the best out there.
-#  I refer to the README and other org document on how to use these files.
-#  Currently and possibly forever a Work In Progress.
-#
-#  flake.nix *             
-#   ├─ ./hosts
-#   │   └─ default.nix
-#   ├─ ./darwin
-#   │   └─ default.nix
-#   └─ ./nix
-#       └─ default.nix
-#
+# The start of my NixOS configuration flake system. 
 
 {
-  description = "My Personal NixOS and Darwin System Flake Configuration";
-
   inputs =                                                                  # All flake references used to build my NixOS setup. These are dependencies.
     {
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";                  # Nix Packages
-
-      home-manager = {                                                      # User Package Management
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";                 
+      neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";   # Setup Neovim nightly
+      home-manager = {                                                      
         url = "github:nix-community/home-manager";
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
     };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
+  outputs = inputs @ { self, nixpkgs, home-manager, neovim-nightly, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
     let                                                                     # Variables that can be used in the config files.
       user = "liam";
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      overlays = [ neovim-nightly.overlay ];
     in                                                                      # Use above variables in ...
     {
       nixosConfigurations = (                                               # NixOS configurations
@@ -45,7 +30,7 @@
       homeConfigurations = (                                                # Non-NixOS configurations
         import ./home {
           inherit (nixpkgs) lib;
-          inherit inputs pkgs nixpkgs home-manager user;
+          inherit inputs pkgs nixpkgs home-manager user overlays;
         }
       );
     };
