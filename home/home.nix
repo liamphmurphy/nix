@@ -99,6 +99,8 @@
                         kc = "kubectl";
 			            fuliam = "home-manager switch --flake .#liam";
                         fuvm = "fuliam && sudo nixos-rebuild switch --flake .#vm";
+                        gpu = "git push origin \"$(git branch --show-current)\"";
+                        gfgp = "git fetch && git pull origin \"$(git branch --show-current)\"";
                 };
         };
 
