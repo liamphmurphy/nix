@@ -117,7 +117,7 @@ lua <<EOF
   })
 
     vim.g.mapleader = ";"
-    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
     vim.keymap.set("n", "<leader>gc", vim.lsp.buf.code_action, {buffer=0})
     vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, {buffer=0})
     vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {buffer=0})
