@@ -16,6 +16,7 @@ in {
 		package = pkgs.i3-gaps;
 		config = {
 			modifier = mod;
+            defaultWorkspace = "1";
 			
 			keybindings = lib.mkOptionDefault {
 				# Window Actions
@@ -30,13 +31,13 @@ in {
 				position = "bottom";
 				statusCommand = "${pkgs.i3status}/bin/i3status";
 				colors = {
-				  background = "#1a1b26";
+				  background = "#1B0E13";
 				  statusline = "#c0caf5";
 				  separator = "#3b4261";
 				  focusedWorkspace = {
-				    background = "#c0caf5";
+				    background = "#772D08";
 				    border = "#3b4261";
-				    text = "#565f89";
+				    text = "#f9f9f9";
 				  };
 				  activeWorkspace = {
 				    background = "#353836";
