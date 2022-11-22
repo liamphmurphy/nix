@@ -1,6 +1,6 @@
 # Setup all of the VMWare goodness
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, user, ... }:
 
 {
   imports =
@@ -18,6 +18,16 @@
 
   virtualisation.vmware.guest.enable = true;
 
+  services.openssh = {
+    enable = true;
+    passwordAuthentication=false; 
+    kbdInteractiveAuthentication = false;
+  };
+
+  users.users.${user}.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBvwcH7xwUzK/+H276zCoG8knqy71FdjX+S5mYnavdVp liam@phmurphy.com"
+  ];
+
   # Set default resolution.
   services.xserver.resolutions = lib.mkOverride 9 [ { x = 2560; y = 1440; } ]; 
 
@@ -31,8 +41,8 @@
   i18n.defaultLocale = "en_US.utf8";
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver = {

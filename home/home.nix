@@ -18,6 +18,7 @@
 		pkgs.gcc
 		pkgs.cmake
 		pkgs.yt-dlp
+        pkgs.ripgrep
 		# general dev stuff
 		pkgs.neovim-nightly
         pkgs.nerdfonts
@@ -55,6 +56,7 @@
 			vimPlugins.vim-nix
 			vimPlugins.vim-terraform
             vimPlugins.vim-go
+            vimPlugins.vim-json
 
             # language servers
             vimPlugins.nvim-lspconfig
@@ -79,6 +81,8 @@
             vimPlugins.cmp-nvim-lsp
             vimPlugins.cmp-buffer
             vimPlugins.cmp-path
+            vimPlugins.cmp-vsnip
+            vimPlugins.vim-vsnip
             vimPlugins.cmp-cmdline
             vimPlugins.nvim-cmp
             vimPlugins.vim-plug
