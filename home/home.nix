@@ -1,5 +1,6 @@
 { config, pkgs, user, overlays, ... }:
 
+
 {
 	imports =
 	[ 
@@ -11,37 +12,49 @@
   	programs.home-manager.enable = true;
 
         home.packages = [
-		# misc
-		pkgs.gitAndTools.gitFull
-		pkgs.wget
-		pkgs.htop
-		pkgs.gcc
-		pkgs.cmake
-		pkgs.yt-dlp
-        pkgs.ripgrep
-		# general dev stuff
-		pkgs.neovim-nightly
-        pkgs.nerdfonts
-		# go stuff
-		pkgs.go
-		pkgs.golangci-lint
-		pkgs.gosec
-		pkgs.gopls
-		# Docker stuff
-		pkgs.docker
-		pkgs.docker-compose
-		pkgs.kubectl
-		# ci / cd
-		pkgs.act
-		# Python stuff
-		pkgs.python3Full
-		pkgs.gnupg1
-		# Desktop apps
-		pkgs.insomnia
-		pkgs.alacritty
-		pkgs.firefox
-	];
+		  # misc
+          pkgs.gitAndTools.gitFull
+          pkgs.wget
+          pkgs.htop
+          pkgs.gcc
+          pkgs.cmake
+          pkgs.yt-dlp
+          pkgs.ripgrep
+          pkgs.nordic
+          # general dev stuff
+          pkgs.neovim-nightly
+          pkgs.nerdfonts
+          pkgs.ranger
+          # go stuff
+          pkgs.go
+          pkgs.golangci-lint
+          pkgs.gosec
+          pkgs.gopls
+          # Docker stuff
+          pkgs.docker
+          pkgs.docker-compose
+          pkgs.kubectl
+          # ci / cd
+          pkgs.act
+          # Python stuff
+          pkgs.python3Full
+          pkgs.gnupg1
+          # Desktop apps
+          pkgs.insomnia
+          pkgs.alacritty
+          pkgs.firefox
+          pkgs.obs-studio
+          pkgs.autorandr
+	  ];
 	
+    programs.alacritty = {
+      enable = true;
+      settings = {
+        window.opacity = 0.85;
+        font.size = 9;
+      };
+    };
+
 	# Note: this is not the neovim from nixpkgs, this is from the neovim-nightly overlay.
 	programs.neovim = {
 		enable = true;
@@ -103,6 +116,7 @@
                         kc = "kubectl";
 			            fuliam = "home-manager switch --flake .#liam";
                         fuvm = "fuliam && sudo nixos-rebuild switch --flake .#vm";
+                        fud = "fuliam && sudo nixos-rebuild switch --flake .#desktop";
                         gpu = "git push origin \"$(git branch --show-current)\"";
                         gfgp = "git fetch && git pull origin \"$(git branch --show-current)\"";
                 };

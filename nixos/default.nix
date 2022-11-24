@@ -24,11 +24,11 @@ let
   lib = nixpkgs.lib;
 in
 {
-  vm = lib.nixosSystem {                                    # VM profile
+  desktop = lib.nixosSystem {                                    # VM profile
     inherit system;
     specialArgs = { inherit inputs user; };
     modules = [
-      ./vm
+      ./desktop
       ./system-config.nix
 
       home-manager.nixosModules.home-manager {
