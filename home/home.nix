@@ -30,9 +30,10 @@
           pkgs.golangci-lint
           pkgs.gosec
           pkgs.gopls
+          pkgs.revive
           # Docker stuff
-          pkgs.docker
-          pkgs.docker-compose
+          #pkgs.docker
+          #pkgs.docker-compose
           pkgs.kubectl
           # ci / cd
           pkgs.act
