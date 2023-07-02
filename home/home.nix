@@ -2,12 +2,11 @@
 
 
 {
-	imports =
+    imports =
 	[ 
 		./linux-desktop.nix
 		./linux-pkgs.nix
 	];
-
 
   	programs.home-manager.enable = true;
 
@@ -68,7 +67,7 @@
 	            vimPlugins.nvim-lspconfig
 	
 				# treesitter
-				vimPlugins.nvim-treesitter
+                #vimPlugins.nvim-treesitter
 	
 	            # ui things
 	            vimPlugins.vim-devicons
@@ -107,8 +106,8 @@
                         gt = "go test ./...";
                         mkdir = "mkdir -p";
                         kc = "kubectl";
-			            fuliam = "home-manager switch --flake .#liam";
-                        fuvm = "fuliam && sudo nixos-rebuild switch --flake .#vm";
+			            fuliam = "home-manager switch --extra-experimental-features nix-command --extra-experimental-features flakes --flake .#liam";
+                        fuvm = "fuliam && sudo nixos-rebuild switch --extra-experimental-features nix-command --extra-experimental-features flakes --flake .#vm";
                         fud = "fuliam && sudo nixos-rebuild switch --flake .#desktop";
                         gpu = "git push origin \"$(git branch --show-current)\"";
                         gfgp = "git fetch && git pull origin \"$(git branch --show-current)\"";

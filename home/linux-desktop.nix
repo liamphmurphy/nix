@@ -10,7 +10,7 @@ in {
 		pkgs.i3status-rust
 		pkgs.dmenu
 	];
-	xsession.enable = true;
+    xsession.enable = true;
 	xsession.windowManager.i3 = {
 		enable = true;
 		package = pkgs.i3-gaps;
