@@ -35,17 +35,9 @@
           #pkgs.docker
           #pkgs.docker-compose
           pkgs.kubectl
-          # ci / cd
-          pkgs.act
           # Python stuff
           pkgs.python3Full
           pkgs.gnupg1
-          # Desktop apps
-          pkgs.insomnia
-          pkgs.alacritty
-          pkgs.firefox
-          pkgs.obs-studio
-          pkgs.autorandr
 	  ];
 	
     programs.alacritty = {
@@ -69,37 +61,37 @@
 			# languages
 			vimPlugins.vim-nix
 			vimPlugins.vim-terraform
-            vimPlugins.vim-go
-            vimPlugins.vim-json
-
-            # language servers
-            vimPlugins.nvim-lspconfig
-
-			# treesitter
-			vimPlugins.nvim-treesitter
-
-            # ui things
-            vimPlugins.vim-devicons
-            vimPlugins.nerdtree
-            vimPlugins.nerdtree-git-plugin
-            vimPlugins.onedark-nvim
-
-			# autocomplete
-			vimPlugins.telescope-nvim
-            vimPlugins.telescope-coc-nvim
-            vimPlugins.telescope-fzf-native-nvim
-
-            # misc
-            vimPlugins.vim-floaterm
-            vimPlugins.ranger-vim
-            vimPlugins.cmp-nvim-lsp
-            vimPlugins.cmp-buffer
-            vimPlugins.cmp-path
-            vimPlugins.cmp-vsnip
-            vimPlugins.vim-vsnip
-            vimPlugins.cmp-cmdline
-            vimPlugins.nvim-cmp
-            vimPlugins.vim-plug
+	            vimPlugins.vim-go
+	            vimPlugins.vim-json
+	
+	            # language servers
+	            vimPlugins.nvim-lspconfig
+	
+				# treesitter
+				vimPlugins.nvim-treesitter
+	
+	            # ui things
+	            vimPlugins.vim-devicons
+	            vimPlugins.nerdtree
+	            vimPlugins.nerdtree-git-plugin
+	            vimPlugins.onedark-nvim
+	
+				# autocomplete
+				vimPlugins.telescope-nvim
+	            vimPlugins.telescope-coc-nvim
+	            vimPlugins.telescope-fzf-native-nvim
+	
+	            # misc
+	            vimPlugins.vim-floaterm
+	            vimPlugins.ranger-vim
+	            vimPlugins.cmp-nvim-lsp
+	            vimPlugins.cmp-buffer
+	            vimPlugins.cmp-path
+	            vimPlugins.cmp-vsnip
+	            vimPlugins.vim-vsnip
+	            vimPlugins.cmp-cmdline
+	            vimPlugins.nvim-cmp
+	            vimPlugins.vim-plug
 		];
 	};
 
